@@ -3,11 +3,13 @@ const WINNING_SCORE = 5;
 let catcher, fallingObject;
 let score = 0;
 let gameStatus = "playing";
-let backgroundImg;
+let backgroundImg, catcherImg, fallingObjectImg;
 
 /* PRELOADS FILES */
 function preload () {
     backgroundImg = loadImage("assets/Kpop-Demon-Hunters.png");
+    catcherImg = loadImage("assets/RumiKPOP-removebg-preview.png");
+    fallingObjectImg = loadImage("assets/image-removebg-preview.png");
 }
 
 function setup() {
