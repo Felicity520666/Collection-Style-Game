@@ -19,7 +19,7 @@ function setup() {
     const canvas = createCanvas(400, 400);
     const gameContainer = document.getElementById("game");
 
-    catcherImg.resize(100, 0);
+    catcherImg.resize(0, 40);
     fallingObjectImg.resize(FALLING_OBJECT_SIZE, 0);
 
     if (gameContainer) {
@@ -34,7 +34,6 @@ function setup() {
         "k"
     );
     catcher.img = catcherImg;
-    catcher.img.offset.y = 10 - catcherImg.height / 2;
     catcher.color = color(95, 158, 160);
 
     fallingObject = new Sprite(100, 0, FALLING_OBJECT_SIZE);
