@@ -1,9 +1,9 @@
 const WINNING_SCORE = 5;
-const CATCHER_WIDTH = 140;
-const CATCHER_HEIGHT = 30;
-const FALLING_OBJECT_SIZE = 50;
+const CATCHER_WIDTH = 43;
+const FALLING_OBJECT_SIZE = 40;
 
 let catcher, fallingObject;
+let catcherStartY;
 let score = 0;
 let gameStatus = "playing";
 let backgroundImg, catcherImg, fallingObjectImg;
@@ -19,8 +19,11 @@ function setup() {
     const canvas = createCanvas(400, 400);
     const gameContainer = document.getElementById("game");
 
-    catcherImg.resize(0, 40);
-    fallingObjectImg.resize(FALLING_OBJECT_SIZE, 0);
+    const catcherScale = CATCHER_WIDTH / catcherImg.width;
+    const catcherHeight = catcherImg.height * catcherScale;
+    const fallingObjectScale =
+        FALLING_OBJECT_SIZE / fallingObjectImg.width;
+    catcherStartY = height - catcherHeight / 2;
 
     if (gameContainer) {
         canvas.parent(gameContainer);
@@ -28,18 +31,21 @@ function setup() {
 
     catcher = new Sprite(
         200,
-        380,
-        CATCHER_WIDTH,
-        CATCHER_HEIGHT,
+        catcherStartY,
+        catcherImg.width,
+        catcherImg.height,
         "k"
     );
     catcher.img = catcherImg;
+    catcher.scale = catcherScale;
     catcher.color = color(95, 158, 160);
 
-    fallingObject = new Sprite(100, 0, FALLING_OBJECT_SIZE);
+    fallingObject = new Sprite(100, 0, fallingObjectImg.width);
     fallingObject.img = fallingObjectImg;
+    fallingObject.scale = fallingObjectScale;
     fallingObject.color = color(0, 128, 128);
     fallingObject.vel.y = 2;
+    fallingObject.rotationLock = true;
 }
 
 function draw() {
@@ -60,10 +66,10 @@ function draw() {
     fill(0);
     textSize(12);
     text(
-        "Move the catcher with the left and right arrow keys to catch the falling objects.",
-        width - 100,
+        "Hey! Help Rumi catch \nJinu! Use the left and \nright arrow keys.",
+        width - 120,
         20,
-        90
+        110
     );
 
     if (fallingObject.y >= height) {
@@ -111,6 +117,8 @@ function draw() {
 }
 
 function drawBackground() {
+    imageMode(CORNER);
+
     const scale = max(
         width / backgroundImg.width,
         height / backgroundImg.height
@@ -160,9 +168,9 @@ function drawEndScreen(message, instruction) {
     textAlign(CENTER, CENTER);
     fill(0, 128, 128);
     textSize(30);
-    text(message, width / 2, height / 2 - 15);
+    text(message, width / 2, height / 2 - 20);
     textSize(16);
-    text(instruction, width / 2, height / 2 + 25);
+    text(instruction, width / 2, height / 2 + 28);
 }
 
 function restart() {
@@ -170,7 +178,7 @@ function restart() {
     gameStatus = "playing";
 
     catcher.x = 200;
-    catcher.y = 380;
+    catcher.y = catcherStartY;
     catcher.visible = true;
 
     fallingObject.visible = true;
