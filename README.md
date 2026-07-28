@@ -8,7 +8,7 @@ hope you have fun and relax.
 
 ## How to Play
 
-Use the left and right arrow keys on your keyboard to move Rumi. Catch Jinu
+Use the left and right (or A and D) arrow keys on your keyboard to move Rumi. Catch Jinu
 five times to win. If you miss him, you lose... But don't give up! Click the game to play again.
 
 ## Features
